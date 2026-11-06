@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import HeroVideo from "@/components/HeroVideo";
-import Reveal from "@/components/Reveal";
+import SpotMeter from "@/components/SpotMeter";
+import ReportPreview from "@/components/ReportPreview";
 
 // TODO: заменить на настоящий адрес
 const CONTACT_EMAIL = "hello@jylu.kz";
@@ -138,9 +139,8 @@ const sources = [
 
 function Label({ n, children }: { n: string; children: React.ReactNode }) {
   return (
-    <p className="label" data-reveal>
+    <p className="label">
       <span className="label__n">{n}</span>
-      <span className="label__line" aria-hidden />
       {children}
     </p>
   );
@@ -150,38 +150,30 @@ export default function Home() {
   return (
     <>
       <Header />
-      <Reveal />
 
       <main id="top">
         {/* ───────── Hero ───────── */}
         <section className="hero">
           <HeroVideo />
           <div className="hero__content container">
-            <p className="eyebrow hero__in" style={{ animationDelay: "0.1s" }}>
-              <span className="dot" aria-hidden /> Павлодар · пилот в сезон 2026–2027
+            <p className="hero__kicker">Павлодар, пилот в отопительный сезон 2026–2027</p>
+            <h1 className="hero__title">Находим утечки в&nbsp;теплосетях до&nbsp;аварии</h1>
+            <p className="hero__lead">
+              Над трубой с утечкой тает снег и прогревается грунт. Тепловизор на коммунальной
+              технике снимает это весь отопительный сезон, а мы сортируем участки по риску.
             </p>
-            <h1 className="hero__title hero__in" style={{ animationDelay: "0.25s" }}>
-              Находим утечки в&nbsp;теплосетях <em>до&nbsp;аварии</em>
-            </h1>
-            <div className="hero__bottom hero__in" style={{ animationDelay: "0.45s" }}>
-              <p className="hero__lead">
-                Над трубой с утечкой тает снег и прогревается грунт. Тепловизор на коммунальной
-                технике снимает это весь отопительный сезон, а мы сортируем участки по риску.
-              </p>
-              <div className="hero__actions">
-                <a href="#pilot" className="btn">
-                  Обсудить пилот
-                  <span className="btn__arrow" aria-hidden>→</span>
-                </a>
-                <a href="#how" className="btn btn--ghost">
-                  Как это работает
-                </a>
-              </div>
+            <div className="hero__actions">
+              <a href="#pilot" className="btn">
+                Обсудить пилот
+              </a>
+              <a href="#how" className="btn btn--secondary">
+                Как это работает
+              </a>
             </div>
           </div>
-          <div className="hero__meta container" aria-hidden>
-            <span>Тепловой кадр · иллюстрация</span>
-            <span className="hero__scroll">Листайте</span>
+          <div className="hero__product container">
+            <ReportPreview />
+            <p className="hero__caption">Фон: тепловой кадр, иллюстрация. Отчёт: пример, данные условные</p>
           </div>
         </section>
 
@@ -189,7 +181,7 @@ export default function Home() {
         <section className="stats">
           <div className="container stats__grid">
             {stats.map((s, i) => (
-              <div key={s.label} className="stat" data-reveal style={{ transitionDelay: `${i * 80}ms` }}>
+              <div key={s.label} className="stat">
                 <p className="stat__value">{s.value}</p>
                 <p className="stat__label">{s.label}</p>
               </div>
@@ -203,16 +195,16 @@ export default function Home() {
           <div className="container split">
             <div>
               <Label n="01">Проблема</Label>
-              <h2 className="h2" data-reveal>
+              <h2 className="h2">
                 Сети изнашиваются быстрее, чем их успевают менять
               </h2>
             </div>
             <div className="split__body">
-              <p className="lead" data-reveal>
+              <p className="lead">
                 У Павлодарской области самый высокий износ теплосетей в стране. При нынешнем темпе
                 ремонта полная замена займёт больше 40 лет.
               </p>
-              <p className="lead lead--muted" data-reveal>
+              <p className="lead lead--muted">
                 Заменить всё сразу не получится. Нужно решить, какие 30 км из 1438 менять первыми,
                 и суметь обосновать этот выбор.
               </p>
@@ -220,7 +212,7 @@ export default function Home() {
           </div>
 
           <div className="container">
-            <figure className="incident" data-reveal>
+            <figure className="incident">
               <p className="incident__date">27.11.2022</p>
               <div>
                 <p className="incident__title">Экибастуз</p>
@@ -238,19 +230,19 @@ export default function Home() {
         <section className="section" id="how">
           <div className="container">
             <Label n="02">Как это работает</Label>
-            <h2 className="h2 h2--wide" data-reveal>
+            <h2 className="h2 h2--wide">
               Камера едет туда, где проходят сети
             </h2>
             <ol className="steps">
               {steps.map((s, i) => (
-                <li key={s.title} className="step" data-reveal style={{ transitionDelay: `${i * 70}ms` }}>
+                <li key={s.title} className="step">
                   <span className="step__n">{String(i + 1).padStart(2, "0")}</span>
                   <h3 className="step__title">{s.title}</h3>
                   <p className="step__text">{s.text}</p>
                 </li>
               ))}
             </ol>
-            <p className="aside" data-reveal>
+            <p className="aside">
               Позже можно добавить термометры Tuya в квартирах. Скан сети показывает, где тепло
               теряется, а термометры покажут, где его не хватает жильцам.
             </p>
@@ -261,7 +253,7 @@ export default function Home() {
         <section className="section" id="systems">
           <div className="container">
             <Label n="03">Связь с системами акимата</Label>
-            <h2 className="h2 h2--wide" data-reveal>
+            <h2 className="h2 h2--wide">
               У акимата есть карта аварий и&nbsp;двойник узлов. Jylu&nbsp;добавляет трубу между ними
             </h2>
             <div className="systems">
@@ -269,8 +261,8 @@ export default function Home() {
                 <article
                   key={s.name}
                   className={`system${s.accent ? " system--accent" : ""}`}
-                  data-reveal
-                  style={{ transitionDelay: `${i * 90}ms` }}
+                 
+                 
                 >
                   <header className="system__head">
                     <h3 className="system__name">{s.name}</h3>
@@ -293,7 +285,7 @@ export default function Home() {
                 </article>
               ))}
             </div>
-            <div className="facts" data-reveal>
+            <div className="facts">
               <p>
                 Данные Jylu выгружаются в РГИС и в цифровой двойник, сами системы менять не нужно.
               </p>
@@ -310,12 +302,12 @@ export default function Home() {
         <section className="section" id="now">
           <div className="container">
             <Label n="04">Почему сейчас</Label>
-            <h2 className="h2 h2--wide" data-reveal>
+            <h2 className="h2 h2--wide">
               В 2026 году совпали четыре условия
             </h2>
             <div className="reasons">
               {reasons.map((r, i) => (
-                <div key={r.title} className="reason" data-reveal style={{ transitionDelay: `${i * 70}ms` }}>
+                <div key={r.title} className="reason">
                   <h3 className="reason__title">{r.title}</h3>
                   <p className="reason__text">{r.text}</p>
                 </div>
@@ -328,19 +320,19 @@ export default function Home() {
         <section className="section" id="cycle">
           <div className="container">
             <Label n="05">Годовой цикл</Label>
-            <h2 className="h2 h2--wide" data-reveal>
+            <h2 className="h2 h2--wide">
               Зимой собираем данные, летом по&nbsp;ним ремонтируют
             </h2>
             <ol className="cycle">
               {cycle.map((c, i) => (
-                <li key={c.when} className="cycle__item" data-reveal style={{ transitionDelay: `${i * 90}ms` }}>
+                <li key={c.when} className="cycle__item">
                   <span className="cycle__dot" aria-hidden />
                   <p className="cycle__when">{c.when}</p>
                   <p className="cycle__what">{c.what}</p>
                 </li>
               ))}
             </ol>
-            <div className="model" data-reveal>
+            <div className="model">
               <p>
                 Результаты каждой опрессовки идут в обучение модели, и к следующей зиме прогноз
                 становится точнее.
@@ -357,15 +349,15 @@ export default function Home() {
         <section className="section section--pilot" id="pilot">
           <div className="container">
             <Label n="06">Пилот</Label>
-            <h2 className="h2 h2--wide" data-reveal>
+            <h2 className="h2 h2--wide">
               Второй Павлодар, отопительный сезон 2026–2027
             </h2>
-            <p className="lead lead--muted pilot__intro" data-reveal>
+            <p className="lead lead--muted pilot__intro">
               Сети Второго Павлодара уже оцифрованы в РГИС, поэтому результаты скана сразу ложатся
               на схему.
             </p>
             <div className="pilot">
-              <div className="pilot__col" data-reveal>
+              <div className="pilot__col">
                 <h3 className="pilot__title">Что нужно от акимата</h3>
                 <ul className="pilot__list">
                   <li>3 единицы коммунальной техники на отопительный сезон под датчики</li>
@@ -373,7 +365,7 @@ export default function Home() {
                   <li>Точка интеграции с ситуационно-аналитическим центром</li>
                 </ul>
               </div>
-              <div className="pilot__col pilot__col--accent" data-reveal style={{ transitionDelay: "100ms" }}>
+              <div className="pilot__col pilot__col--accent">
                 <h3 className="pilot__title">Что получит акимат</h3>
                 <ul className="pilot__list pilot__list--dated">
                   <li><span>Декабрь — март</span>Регулярный скан и карта аномалий онлайн</li>
@@ -382,7 +374,7 @@ export default function Home() {
                 </ul>
               </div>
             </div>
-            <p className="aside" data-reveal>
+            <p className="aside">
               Результат проверяется независимо: опрессовку проводят сами теплосети.
             </p>
           </div>
@@ -393,13 +385,13 @@ export default function Home() {
           <div className="container split">
             <div>
               <Label n="07">Вопросы</Label>
-              <h2 className="h2" data-reveal>
+              <h2 className="h2">
                 Что обычно спрашивают
               </h2>
             </div>
             <div className="faq">
               {faq.map((f) => (
-                <details key={f.q} className="faq__item" data-reveal>
+                <details key={f.q} className="faq__item">
                   <summary>
                     <span>{f.q}</span>
                     <span className="faq__icon" aria-hidden />
@@ -414,24 +406,19 @@ export default function Home() {
         {/* ───────── Team + CTA ───────── */}
         <section className="section cta">
           <div className="container">
-            <div className="team" data-reveal>
-              <p className="label">
-                <span className="label__n">08</span>
-                <span className="label__line" aria-hidden />
-                Команда
-              </p>
+            <div className="team">
+              <Label n="08">Команда</Label>
               <p className="team__name">Алихан Кенжебаев</p>
               <p className="team__role">
                 Основатель. Embedded-разработка (ISS.AI), full-stack (Next.js, Supabase), интеграция
                 IoT-устройств Tuya. Резидент Astana Hub.
               </p>
             </div>
-            <h2 className="cta__title" data-reveal>
-              Начнём с одного района <em>этой зимой</em>
+            <h2 className="cta__title">
+              Начнём с одного района этой зимой
             </h2>
-            <a className="btn btn--large" href={`mailto:${CONTACT_EMAIL}`} data-reveal>
+            <a className="btn btn--large" href={`mailto:${CONTACT_EMAIL}`}>
               Написать нам
-              <span className="btn__arrow" aria-hidden>→</span>
             </a>
           </div>
         </section>
@@ -440,7 +427,7 @@ export default function Home() {
       <footer className="footer">
         <div className="container">
           <details className="sources">
-            <summary>Источники · {sources.length}</summary>
+            <summary>Источники <span className="num">{sources.length}</span></summary>
             <ol>
               {sources.map(([t, href]) => (
                 <li key={href}>
@@ -453,7 +440,7 @@ export default function Home() {
           </details>
           <div className="footer__bar">
             <span className="logo">
-              <span className="logo__mark" aria-hidden />
+              <SpotMeter size={18} className="logo__mark" />
               Jylu
             </span>
             <span>жылу — «тепло» по-казахски</span>

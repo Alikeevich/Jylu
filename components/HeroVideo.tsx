@@ -36,7 +36,6 @@ export default function HeroVideo() {
         preload="auto"
       />
       <div className="hero__shade" />
-      <div className="grain" />
     </div>
   );
 }
