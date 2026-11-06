@@ -4,7 +4,7 @@
  * Character — спокойный, инженерный, северный
  * World     — зимняя ночь во дворе Павлодара, снег, пар над камерой, экран тепловизора
  * Moments   — фоновый тепловой кадр, где горит только утечка; ночной двор с полосой растаявшего снега
- * Signature — прицел точечного замера тепловизора (SpotMeter) в логотипе
+ * Signature — «горячий пиксель»: оранжевый квадрат над j в логотипе, единственное яркое пятно в шапке
  *
  * Themes: dark is the base. Light applies on a light device (no explicit choice)
  * or after the toggle sets data-theme="light". The hero always stays dark.
@@ -181,17 +181,18 @@ p {
   align-items: center;
   gap: 12px;
 }
+/* the wordmark: 24px box gives a 12.5px x-height; nudged so the x-height, not the box, is centred */
 .logo {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
   margin-right: 20px;
-  font-size: 18px;
-  font-weight: 500;
-  line-height: 1;
+  color: var(--fg);
 }
-.logo__mark {
-  color: var(--ember);
+.logo svg {
+  display: block;
+  height: 24px;
+  width: auto;
+  transform: translateY(1px);
 }
 .nav {
   display: flex;
@@ -893,8 +894,9 @@ p {
 }
 .footer__bar .logo {
   margin-right: 0;
-  color: var(--fg);
-  font-size: 16px;
+}
+.footer__bar .logo svg {
+  height: 20px;
 }
 .footer__legal {
   display: flex;

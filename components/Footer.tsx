@@ -1,7 +1,7 @@
 import { dict } from "@/content/dictionary";
 import { href, type Lang } from "@/content/i18n";
 import { SOURCES } from "@/content/site";
-import SpotMeter from "./SpotMeter";
+import Logo from "./Logo";
 
 export default function Footer({ lang, withSources = false }: { lang: Lang; withSources?: boolean }) {
   const t = dict[lang];
@@ -25,9 +25,8 @@ export default function Footer({ lang, withSources = false }: { lang: Lang; with
           </details>
         )}
         <div className="footer__bar">
-          <a className="logo" href={href(lang)}>
-            <SpotMeter size={18} className="logo__mark" />
-            Jylu
+          <a className="logo" href={href(lang)} aria-label={t.nav.home}>
+            <Logo />
           </a>
           <span>{t.footer.tagline}</span>
           <nav className="footer__legal" aria-label={t.footer.legalLabel}>

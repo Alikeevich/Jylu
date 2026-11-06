@@ -1,7 +1,7 @@
 import { dict } from "@/content/dictionary";
 import { HTML_LANG, LANG_LABEL, LANGS, href, type Lang, type PageKey } from "@/content/i18n";
 import { CloseIcon, MenuIcon, MoonIcon, SunIcon } from "./Icons";
-import SpotMeter from "./SpotMeter";
+import Logo from "./Logo";
 
 /**
  * Static markup only. Behaviour (scroll state, mobile menu, theme toggle)
@@ -22,8 +22,7 @@ export default function Header({ lang, page }: { lang: Lang; page: PageKey }) {
     <header className={`header${onHome ? "" : " header--solid"}`} data-solid={onHome ? undefined : ""}>
       <div className="header__inner">
         <a href={onHome ? "#top" : href(lang)} className="logo" aria-label={t.nav.home}>
-          <SpotMeter size={18} className="logo__mark" />
-          Jylu
+          <Logo />
         </a>
         <nav className="nav" aria-label={t.nav.sections}>
           {links.map(([id, label]) => (
