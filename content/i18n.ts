@@ -13,7 +13,8 @@ export const LANG_LABEL: Record<Lang, { short: string; name: string }> = {
   en: { short: "EN", name: "English" },
 };
 
-export type LegalKey = "privacy" | "terms" | "cookies";
+export const LEGAL_KEYS = ["privacy", "terms", "cookies"] as const;
+export type LegalKey = (typeof LEGAL_KEYS)[number];
 export type PageKey = "home" | LegalKey;
 
 export function href(lang: Lang, page: PageKey = "home", hash?: string) {
@@ -23,4 +24,8 @@ export function href(lang: Lang, page: PageKey = "home", hash?: string) {
 
 export function isLang(value: string): value is Lang {
   return (LANGS as readonly string[]).includes(value);
+}
+
+export function isLegalKey(value: string): value is LegalKey {
+  return (LEGAL_KEYS as readonly string[]).includes(value);
 }

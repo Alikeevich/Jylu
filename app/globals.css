@@ -12,7 +12,6 @@
 :root {
   color-scheme: dark;
   /* ink ramp, tinted toward a winter night */
-  --bg-0: #07080d;
   --bg: #0b0d14;
   --card: #11141c;
   --raised: #1a1e28;
@@ -42,7 +41,6 @@
   :root:not([data-theme="dark"]) {
     color-scheme: light;
     /* snow-day ramp */
-    --bg-0: #e9edf3;
     --bg: #f4f6f9;
     --card: #ffffff;
     --raised: #eceff4;
@@ -62,7 +60,6 @@
 
 :root[data-theme="light"] {
   color-scheme: light;
-  --bg-0: #e9edf3;
   --bg: #f4f6f9;
   --card: #ffffff;
   --raised: #eceff4;
@@ -83,7 +80,6 @@
 .on-dark,
 .header:not(.header--solid) {
   color-scheme: dark;
-  --bg-0: #07080d;
   --bg: #0b0d14;
   --card: #11141c;
   --raised: #1a1e28;
@@ -208,9 +204,6 @@ p {
 .nav > a {
   transition: color 150ms var(--ease);
 }
-.nav > a:hover {
-  color: var(--fg);
-}
 .langs {
   display: flex;
   gap: 2px;
@@ -224,9 +217,6 @@ p {
   font-size: 13px;
   color: var(--fg-3);
   transition: color 150ms var(--ease), background-color 150ms var(--ease);
-}
-.langs a:hover {
-  color: var(--fg);
 }
 .langs a[aria-current] {
   color: var(--fg);
@@ -247,10 +237,7 @@ p {
   background: transparent;
   color: var(--fg);
   cursor: pointer;
-  transition: background-color 150ms var(--ease);
-}
-.icon-btn:hover {
-  background: var(--raised);
+  transition: background-color 150ms var(--ease), transform 150ms var(--ease);
 }
 .menu {
   display: none;
@@ -298,9 +285,6 @@ p {
   cursor: pointer;
   transition: background-color 150ms var(--ease), border-color 150ms var(--ease), transform 150ms var(--ease);
 }
-.btn:hover {
-  background: var(--btn-hover);
-}
 .btn:active {
   transform: scale(0.98);
 }
@@ -309,9 +293,6 @@ p {
   color: var(--fg);
   border-color: var(--line-2);
   box-shadow: inset 0 1px 0 var(--highlight);
-}
-.btn--secondary:hover {
-  background: var(--raised);
 }
 .btn--small {
   height: 36px;
@@ -355,7 +336,7 @@ p {
     linear-gradient(180deg, rgba(11, 13, 20, 0.6) 0%, rgba(11, 13, 20, 0) 24%, rgba(11, 13, 20, 0) 64%, var(--bg) 100%);
 }
 .hero__content {
-  padding-top: 112px;
+  padding-top: calc(112px + env(safe-area-inset-top, 0px));
   padding-bottom: 144px;
   animation: enter 480ms var(--ease) both;
 }
@@ -393,7 +374,7 @@ p {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 24px;
+  bottom: calc(24px + env(safe-area-inset-bottom, 0px));
   font-size: 12px;
   color: var(--fg-3);
 }
@@ -809,9 +790,6 @@ p {
 .faq__item summary::-webkit-details-marker {
   display: none;
 }
-.faq__item summary:hover {
-  color: var(--fg-2);
-}
 .faq__icon {
   flex: none;
   width: 12px;
@@ -871,7 +849,7 @@ p {
 /* ───────── Footer ───────── */
 .footer {
   border-top: 1px solid var(--line);
-  padding: 32px 0 40px;
+  padding: 32px 0 calc(40px + env(safe-area-inset-bottom, 0px));
   font-size: 14px;
   color: var(--fg-3);
 }
@@ -885,9 +863,6 @@ p {
   gap: 8px;
   color: var(--fg-2);
   transition: color 150ms var(--ease);
-}
-.sources summary:hover {
-  color: var(--fg);
 }
 .sources summary::-webkit-details-marker {
   display: none;
@@ -909,10 +884,6 @@ p {
 .footer__legal a {
   color: var(--fg-2);
   transition: color 150ms var(--ease);
-}
-.sources a:hover,
-.footer__legal a:hover {
-  color: var(--fg);
 }
 .footer__bar {
   display: flex;
@@ -949,7 +920,18 @@ p {
   box-shadow: var(--shadow);
   font-size: 14px;
   color: var(--fg-2);
-  animation: enter 300ms var(--ease) both;
+  transition: opacity 300ms var(--ease), transform 300ms var(--ease);
+}
+@starting-style {
+  .cookie {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+.cookie--leaving {
+  opacity: 0;
+  transform: translateY(8px);
+  transition-duration: 150ms;
 }
 .cookie__actions {
   display: flex;
@@ -965,7 +947,7 @@ p {
 
 /* ───────── Legal pages ───────── */
 .legal {
-  padding: 128px 0 96px;
+  padding: calc(128px + env(safe-area-inset-top, 0px)) 0 96px;
 }
 .container.legal__inner {
   max-width: calc(760px + 2 * var(--gutter));
@@ -977,9 +959,6 @@ p {
   font-size: 14px;
   color: var(--fg-2);
   transition: color 150ms var(--ease);
-}
-.legal__back:hover {
-  color: var(--fg);
 }
 .legal__title {
   margin-top: 32px;
@@ -1040,6 +1019,70 @@ p {
   border-radius: 4px;
 }
 
+/* ───────── Touch and pointer ───────── */
+/* no grey flash on tap: every control below has its own :active state */
+html {
+  -webkit-tap-highlight-color: transparent;
+}
+/* no 300ms double-tap wait on controls */
+a,
+button,
+summary {
+  touch-action: manipulation;
+}
+/* controls are not content: long-press neither selects their label nor opens the link callout */
+.logo,
+.btn,
+.icon-btn,
+.nav > a,
+.langs a,
+.faq__item summary,
+.sources summary,
+.legal__back {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+/* press feedback, which touch gets instead of hover */
+.icon-btn:active {
+  background: var(--raised);
+  transform: scale(0.97);
+}
+.nav > a:active,
+.langs a:active,
+.legal__back:active,
+.sources summary:active,
+.sources a:active,
+.footer__legal a:active {
+  color: var(--fg);
+}
+.faq__item summary:active {
+  color: var(--fg-2);
+}
+/* hover only where the pointer can hover; on touch a tap would leave it stuck */
+@media (hover: hover) and (pointer: fine) {
+  .nav > a:hover,
+  .langs a:hover,
+  .sources summary:hover,
+  .sources a:hover,
+  .footer__legal a:hover,
+  .legal__back:hover {
+    color: var(--fg);
+  }
+  .icon-btn:hover {
+    background: var(--raised);
+  }
+  .btn:hover {
+    background: var(--btn-hover);
+  }
+  .btn--secondary:hover {
+    background: var(--raised);
+  }
+  .faq__item summary:hover {
+    color: var(--fg-2);
+  }
+}
+
 /* ───────── Responsive ───────── */
 @media (max-width: 1100px) {
   .hero__title {
@@ -1093,10 +1136,18 @@ p {
     left: 0;
     right: 0;
     margin: 0;
-    padding: 8px max(16px, env(safe-area-inset-left, 0px)) 20px;
+    padding: 8px max(16px, env(safe-area-inset-right, 0px)) 20px max(16px, env(safe-area-inset-left, 0px));
     background: var(--bg);
     border-bottom: 1px solid var(--line);
     font-size: 16px;
+    transition: opacity 180ms var(--ease), transform 180ms var(--ease);
+  }
+  /* the panel drops in from the header it belongs to */
+  @starting-style {
+    .header--open .nav {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
   }
   .header--open .nav > a {
     height: 44px;
@@ -1127,7 +1178,7 @@ p {
     gap: 8px;
   }
   .hero__content {
-    padding-top: 112px;
+    padding-top: calc(112px + env(safe-area-inset-top, 0px));
     padding-bottom: 96px;
   }
   .hero__title,
@@ -1207,7 +1258,7 @@ p {
     margin-left: 0;
   }
   .legal {
-    padding-top: 112px;
+    padding-top: calc(112px + env(safe-area-inset-top, 0px));
   }
   .legal__title {
     font-size: 34px;

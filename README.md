@@ -29,11 +29,13 @@ NEXT_PUBLIC_SITE_URL=https://jylu.kz npm run build
 
 ## Где что лежит
 
+- `content/i18n.ts` — список языков и правовых страниц, из него строятся маршруты, переключатель и выбор языка на `/`;
 - `content/dictionary.ts` — все тексты сайта на трёх языках;
 - `content/legal.ts` — тексты правовых страниц;
 - `content/site.ts` — контактный email (`CONTACT_EMAIL`) и список источников;
 - `app/globals.css` — стили, цвета обеих тем задаются токенами в начале файла;
 - `components/` — шапка, подвал, главная, правовые страницы, уведомление о cookie;
+- `app/[lang]/page.tsx` — главная, `app/[lang]/[doc]/page.tsx` — все правовые страницы;
 - `public/site.js` — поведение страницы: тема, меню, уведомление, видео.
 
 ## Тема и cookie
@@ -62,4 +64,14 @@ ffmpeg -i public/video/hero.mp4 -frames:v 1 -q:v 3 public/video/poster.jpg
 npm run build && npm run standalone
 ```
 
-Собирает `standalone/index.html` со всеми языками и страницами в одном файле, переключение по адресу вида `#kz`, `#en-terms`. Подходит для офлайн-показа на питче; шрифты подгружаются из Google Fonts, без интернета будет системный шрифт.
+Собирает `standalone/index.html` со всеми языками и страницами в одном файле, переключение по адресу вида `#kz`, `#en-terms`. Шрифты, видео и фото лежат рядом в той же папке, поэтому версия работает офлайн, например на питче без интернета, и не обращается к сторонним сервисам.
+
+## Скиллы для Claude Code
+
+В `.claude/skills/` лежат скиллы, которые Claude Code подхватывает в этом репозитории:
+
+- [heydamir/unslop](https://github.com/heydamir/unslop) — `/unslop`, убирает «ИИ-вид» интерфейса;
+- [emilkowalski/skills](https://github.com/emilkowalski/skills) — анимация и дизайн интерфейсов: `/emil-design-eng`, `/review-animations`, `/mobile-native`, `/break-ui` и другие;
+- [mattpocock/skills](https://github.com/mattpocock/skills) — инженерный процесс: `/grill-me`, `/to-spec`, `/tdd`, `/code-review-pocock` и другие.
+
+Два скилла переименованы из-за совпадения имён: `prototype` Эмиля Ковальски стал `ui-prototype`, `code-review` Мэтта Покока стал `code-review-pocock`. Лицензии и источники — в `.claude/skills/THIRD-PARTY-LICENSES.md`.

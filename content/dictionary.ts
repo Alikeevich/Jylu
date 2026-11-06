@@ -56,7 +56,7 @@ export interface Dict {
   legal: { back: string; updated: string };
 }
 
-const nb = " ";
+const NBSP = "\u00a0";
 
 const ru: Dict = {
   meta: {
@@ -78,7 +78,7 @@ const ru: Dict = {
   },
   hero: {
     kicker: "Павлодар, пилот в отопительный сезон 2026–2027",
-    title: `Находим утечки в${nb}теплосетях до${nb}аварии`,
+    title: `Находим утечки в${NBSP}теплосетях до${NBSP}аварии`,
     lead: "Над трубой с утечкой тает снег и прогревается грунт. Тепловизор на коммунальной технике снимает это весь отопительный сезон, а мы сортируем участки по риску.",
     primary: "Обсудить пилот",
     secondary: "Как это работает",
@@ -133,7 +133,7 @@ const ru: Dict = {
   },
   systems: {
     label: "Связь с системами акимата",
-    title: `У акимата есть карта аварий и${nb}двойник узлов. Jylu${nb}добавляет трубу между ними`,
+    title: `У акимата есть карта аварий и${NBSP}двойник узлов. Jylu${NBSP}добавляет трубу между ними`,
     rows: { owner: "Кто ведёт", shows: "Что показывает", when: "Когда срабатывает" },
     items: [
       {
@@ -190,7 +190,7 @@ const ru: Dict = {
   },
   cycle: {
     label: "Годовой цикл",
-    title: `Зимой собираем данные, летом по${nb}ним ремонтируют`,
+    title: `Зимой собираем данные, летом по${NBSP}ним ремонтируют`,
     items: [
       { when: "Октябрь — апрель", what: "Скан с коммунальной техники" },
       { when: "Конец апреля", what: "Рейтинг участков: где менять первым" },
@@ -259,13 +259,13 @@ const ru: Dict = {
       },
     ],
   },
-  cta: { title: `Начнём с${nb}одного района этой${nb}зимой`, button: "Написать нам" },
+  cta: { title: `Начнём с${NBSP}одного района этой${NBSP}зимой`, button: "Написать нам" },
   footer: {
     sources: "Источники",
     legal: { privacy: "Конфиденциальность", terms: "Условия использования", cookies: "Cookie" },
     legalLabel: "Документы",
     tagline: "жылу — «тепло» по-казахски",
-    place: "Павлодар, 2026",
+    place: "Павлодар",
   },
   cookie: {
     label: "Уведомление о cookie",
@@ -296,7 +296,7 @@ const en: Dict = {
   },
   hero: {
     kicker: "Pavlodar, pilot for the 2026–2027 heating season",
-    title: `We find heating leaks before the${nb}pipes${nb}fail`,
+    title: `We find heating leaks before the${NBSP}pipes${NBSP}fail`,
     lead: "Above a leaking pipe, snow melts and the ground warms up. A thermal camera on municipal vehicles records this all heating season, and we rank pipe sections by risk.",
     primary: "Discuss the pilot",
     secondary: "How it works",
@@ -354,7 +354,7 @@ const en: Dict = {
   },
   systems: {
     label: "How it fits the akimat's systems",
-    title: `The akimat has an incident map and a${nb}twin of the nodes. Jylu${nb}adds the pipe in between`,
+    title: `The akimat has an incident map and a${NBSP}twin of the nodes. Jylu${NBSP}adds the pipe in between`,
     rows: { owner: "Run by", shows: "Shows", when: "Triggers" },
     items: [
       {
@@ -411,7 +411,7 @@ const en: Dict = {
   },
   cycle: {
     label: "The yearly cycle",
-    title: `We collect data in winter, repairs follow in${nb}summer`,
+    title: `We collect data in winter, repairs follow in${NBSP}summer`,
     items: [
       { when: "October — April", what: "Scanning from municipal vehicles" },
       { when: "End of April", what: "Section ranking: what to replace first" },
@@ -486,7 +486,7 @@ const en: Dict = {
     legal: { privacy: "Privacy", terms: "Terms of use", cookies: "Cookies" },
     legalLabel: "Legal",
     tagline: "jylu means “warmth” in Kazakh",
-    place: "Pavlodar, 2026",
+    place: "Pavlodar",
   },
   cookie: {
     label: "Cookie notice",
@@ -517,7 +517,7 @@ const kz: Dict = {
   },
   hero: {
     kicker: "Павлодар, 2026–2027 жылыту маусымындағы пилоттық жоба",
-    title: `Жылу желісіндегі ағып кетулерді апатқа${nb}дейін табамыз`,
+    title: `Жылу желісіндегі ағып кетулерді апатқа${NBSP}дейін табамыз`,
     lead: "Ағып тұрған құбырдың үстінде қар ериді, топырақ жылиды. Коммуналдық техникаға орнатылған тепловизор мұны бүкіл жылыту маусымы бойы түсіреді, ал біз учаскелерді тәуекел деңгейіне қарай сұрыптаймыз.",
     primary: "Пилотты талқылау",
     secondary: "Қалай жұмыс істейді",
@@ -578,7 +578,7 @@ const kz: Dict = {
   },
   systems: {
     label: "Әкімдік жүйелерімен байланыс",
-    title: `Әкімдікте апаттар картасы мен тораптардың цифрлық егізі бар. Jylu${nb}олардың арасындағы құбырды қосады`,
+    title: `Әкімдікте апаттар картасы мен тораптардың цифрлық егізі бар. Jylu${NBSP}олардың арасындағы құбырды қосады`,
     rows: { owner: "Кім жүргізеді", shows: "Нені көрсетеді", when: "Қашан іске қосылады" },
     items: [
       {
@@ -635,7 +635,7 @@ const kz: Dict = {
   },
   cycle: {
     label: "Жылдық цикл",
-    title: `Қыста деректер жинаймыз, жазда соларға сүйеніп${nb}жөндейді`,
+    title: `Қыста деректер жинаймыз, жазда соларға сүйеніп${NBSP}жөндейді`,
     items: [
       { when: "Қазан — сәуір", what: "Коммуналдық техникадан сканерлеу" },
       { when: "Сәуірдің соңы", what: "Учаскелер рейтингі: алдымен нені ауыстыру керек" },
@@ -710,7 +710,7 @@ const kz: Dict = {
     legal: { privacy: "Құпиялылық", terms: "Пайдалану шарттары", cookies: "Cookie" },
     legalLabel: "Құжаттар",
     tagline: "Атауы «жылу» сөзінен",
-    place: "Павлодар, 2026",
+    place: "Павлодар",
   },
   cookie: {
     label: "Cookie туралы хабарлама",

@@ -9,7 +9,7 @@ import type { Lang, LegalKey } from "./i18n";
  * or analytics. Have them checked by a lawyer and add the operator's legal
  * details (ИП/ТОО, БИН, address) before the site goes public.
  */
-export type Block = string | { list: string[] } | { keys: [string, string][] };
+export type Block = string | { keys: [string, string][] };
 export interface LegalSection {
   h: string;
   body: Block[];

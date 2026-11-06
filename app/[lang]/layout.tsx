@@ -26,9 +26,12 @@ export function generateStaticParams() {
   return LANGS.map((lang) => ({ lang }));
 }
 
+// The home page opens on the dark hero in both themes, so the status bar stays dark there.
+// Legal pages override themeColor per scheme; site.js follows the in-page toggle.
 export const viewport: Viewport = {
   themeColor: "#0b0d14",
   colorScheme: "dark light",
+  viewportFit: "cover",
 };
 
 // Applies a saved theme before first paint. Without one the page follows the device.

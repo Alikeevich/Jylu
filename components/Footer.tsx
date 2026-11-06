@@ -1,16 +1,17 @@
-import type { Dict } from "@/content/dictionary";
+import { dict } from "@/content/dictionary";
 import { href, type Lang } from "@/content/i18n";
 import { SOURCES } from "@/content/site";
 import SpotMeter from "./SpotMeter";
 
-export default function Footer({ lang, d, withSources = false }: { lang: Lang; d: Dict; withSources?: boolean }) {
+export default function Footer({ lang, withSources = false }: { lang: Lang; withSources?: boolean }) {
+  const t = dict[lang];
   return (
     <footer className="footer">
       <div className="container">
         {withSources && (
           <details className="sources">
             <summary>
-              {d.footer.sources} <span className="num">{SOURCES.length}</span>
+              {t.footer.sources} <span className="num">{SOURCES.length}</span>
             </summary>
             <ol>
               {SOURCES.map((s) => (
@@ -28,14 +29,14 @@ export default function Footer({ lang, d, withSources = false }: { lang: Lang; d
             <SpotMeter size={18} className="logo__mark" />
             Jylu
           </a>
-          <span>{d.footer.tagline}</span>
-          <nav className="footer__legal" aria-label={d.footer.legalLabel}>
-            <a href={href(lang, "privacy")}>{d.footer.legal.privacy}</a>
-            <a href={href(lang, "terms")}>{d.footer.legal.terms}</a>
-            <a href={href(lang, "cookies")}>{d.footer.legal.cookies}</a>
+          <span>{t.footer.tagline}</span>
+          <nav className="footer__legal" aria-label={t.footer.legalLabel}>
+            <a href={href(lang, "privacy")}>{t.footer.legal.privacy}</a>
+            <a href={href(lang, "terms")}>{t.footer.legal.terms}</a>
+            <a href={href(lang, "cookies")}>{t.footer.legal.cookies}</a>
           </nav>
           <span>
-            © 2026 Jylu · {d.footer.place}
+            © 2026 Jylu · {t.footer.place}
           </span>
         </div>
       </div>

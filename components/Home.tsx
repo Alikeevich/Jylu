@@ -11,64 +11,64 @@ function Label({ children }: { children: React.ReactNode }) {
 }
 
 export default function Home({ lang }: { lang: Lang }) {
-  const d = dict[lang];
+  const t = dict[lang];
 
   return (
     <>
-      <Header lang={lang} d={d} page="home" />
+      <Header lang={lang} page="home" />
 
       <main id="top">
         {/* ───────── Hero ───────── */}
         <section className="hero on-dark">
           <HeroVideo />
           <div className="hero__content container">
-            <p className="hero__kicker">{d.hero.kicker}</p>
-            <h1 className="hero__title">{d.hero.title}</h1>
-            <p className="hero__lead">{d.hero.lead}</p>
+            <p className="hero__kicker">{t.hero.kicker}</p>
+            <h1 className="hero__title">{t.hero.title}</h1>
+            <p className="hero__lead">{t.hero.lead}</p>
             <div className="hero__actions">
               <a href="#pilot" className="btn">
-                {d.hero.primary}
+                {t.hero.primary}
               </a>
               <a href="#how" className="btn btn--secondary">
-                {d.hero.secondary}
+                {t.hero.secondary}
               </a>
             </div>
           </div>
-          <p className="hero__caption container">{d.hero.caption}</p>
+          <p className="hero__caption container">{t.hero.caption}</p>
         </section>
 
         {/* ───────── Stats ───────── */}
         <section className="stats">
           <div className="container stats__grid">
-            {d.stats.items.map((s) => (
+            {t.stats.items.map((s) => (
               <div key={s.label} className="stat">
                 <p className="stat__value">{s.value}</p>
                 <p className="stat__label">{s.label}</p>
               </div>
             ))}
           </div>
-          <p className="container note">{d.stats.note}</p>
+          <p className="container note">{t.stats.note}</p>
         </section>
 
         {/* ───────── Problem ───────── */}
         <section className="section" id="problem">
           <div className="container split">
             <div>
-              <Label>{d.problem.label}</Label>
-              <h2 className="h2">{d.problem.title}</h2>
+              <Label>{t.problem.label}</Label>
+              <h2 className="h2">{t.problem.title}</h2>
             </div>
             <div className="split__body">
-              <p className="lead">{d.problem.p1}</p>
-              <p className="lead lead--muted">{d.problem.p2}</p>
+              <p className="lead">{t.problem.p1}</p>
+              <p className="lead lead--muted">{t.problem.p2}</p>
             </div>
           </div>
 
           <div className="container">
             <figure className="incident">
-              <p className="incident__date">{d.problem.incident.date}</p>
+              <p className="incident__date">{t.problem.incident.date}</p>
               <div>
-                <p className="incident__title">{d.problem.incident.title}</p>
-                <p className="incident__text">{d.problem.incident.text}</p>
+                <p className="incident__title">{t.problem.incident.title}</p>
+                <p className="incident__text">{t.problem.incident.text}</p>
               </div>
             </figure>
           </div>
@@ -83,21 +83,21 @@ export default function Home({ lang }: { lang: Lang }) {
               sizes="(max-width: 860px) 100vw, 1296px"
               width={1536}
               height={864}
-              alt={d.photo.alt}
+              alt={t.photo.alt}
               loading="lazy"
               decoding="async"
             />
           </div>
-          <figcaption className="photo__caption">{d.photo.caption}</figcaption>
+          <figcaption className="photo__caption">{t.photo.caption}</figcaption>
         </figure>
 
         {/* ───────── How ───────── */}
         <section className="section" id="how">
           <div className="container">
-            <Label>{d.how.label}</Label>
-            <h2 className="h2 h2--wide">{d.how.title}</h2>
+            <Label>{t.how.label}</Label>
+            <h2 className="h2 h2--wide">{t.how.title}</h2>
             <ol className="steps">
-              {d.how.steps.map((s, i) => (
+              {t.how.steps.map((s, i) => (
                 <li key={s.title} className="step">
                   <span className="step__n">{String(i + 1).padStart(2, "0")}</span>
                   <h3 className="step__title">{s.title}</h3>
@@ -105,17 +105,17 @@ export default function Home({ lang }: { lang: Lang }) {
                 </li>
               ))}
             </ol>
-            <p className="aside">{d.how.aside}</p>
+            <p className="aside">{t.how.aside}</p>
           </div>
         </section>
 
         {/* ───────── Systems ───────── */}
         <section className="section" id="systems">
           <div className="container">
-            <Label>{d.systems.label}</Label>
-            <h2 className="h2 h2--wide">{d.systems.title}</h2>
+            <Label>{t.systems.label}</Label>
+            <h2 className="h2 h2--wide">{t.systems.title}</h2>
             <div className="systems">
-              {d.systems.items.map((s) => (
+              {t.systems.items.map((s) => (
                 <article key={s.name} className={`system${s.accent ? " system--accent" : ""}`}>
                   <header className="system__head">
                     <h3 className="system__name">{s.name}</h3>
@@ -123,15 +123,15 @@ export default function Home({ lang }: { lang: Lang }) {
                   </header>
                   <dl className="system__rows">
                     <div>
-                      <dt>{d.systems.rows.owner}</dt>
+                      <dt>{t.systems.rows.owner}</dt>
                       <dd>{s.owner}</dd>
                     </div>
                     <div>
-                      <dt>{d.systems.rows.shows}</dt>
+                      <dt>{t.systems.rows.shows}</dt>
                       <dd>{s.shows}</dd>
                     </div>
                     <div>
-                      <dt>{d.systems.rows.when}</dt>
+                      <dt>{t.systems.rows.when}</dt>
                       <dd className="system__when">{s.when}</dd>
                     </div>
                   </dl>
@@ -139,9 +139,9 @@ export default function Home({ lang }: { lang: Lang }) {
               ))}
             </div>
             <div className="facts">
-              <p>{d.systems.facts}</p>
+              <p>{t.systems.facts}</p>
               <ul className="facts__nums">
-                {d.systems.nums.map((n) => (
+                {t.systems.nums.map((n) => (
                   <li key={n.value}>
                     <b>{n.value}</b> {n.text}
                   </li>
@@ -154,10 +154,10 @@ export default function Home({ lang }: { lang: Lang }) {
         {/* ───────── Why now ───────── */}
         <section className="section" id="now">
           <div className="container">
-            <Label>{d.now.label}</Label>
-            <h2 className="h2 h2--wide">{d.now.title}</h2>
+            <Label>{t.now.label}</Label>
+            <h2 className="h2 h2--wide">{t.now.title}</h2>
             <div className="reasons">
-              {d.now.items.map((r) => (
+              {t.now.items.map((r) => (
                 <div key={r.title} className="reason">
                   <h3 className="reason__title">{r.title}</h3>
                   <p className="reason__text">{r.text}</p>
@@ -170,10 +170,10 @@ export default function Home({ lang }: { lang: Lang }) {
         {/* ───────── Cycle ───────── */}
         <section className="section" id="cycle">
           <div className="container">
-            <Label>{d.cycle.label}</Label>
-            <h2 className="h2 h2--wide">{d.cycle.title}</h2>
+            <Label>{t.cycle.label}</Label>
+            <h2 className="h2 h2--wide">{t.cycle.title}</h2>
             <ol className="cycle">
-              {d.cycle.items.map((c) => (
+              {t.cycle.items.map((c) => (
                 <li key={c.when} className="cycle__item">
                   <span className="cycle__dot" aria-hidden />
                   <p className="cycle__when">{c.when}</p>
@@ -182,7 +182,7 @@ export default function Home({ lang }: { lang: Lang }) {
               ))}
             </ol>
             <div className="model">
-              {d.cycle.model.map((p) => (
+              {t.cycle.model.map((p) => (
                 <p key={p}>{p}</p>
               ))}
             </div>
@@ -192,22 +192,22 @@ export default function Home({ lang }: { lang: Lang }) {
         {/* ───────── Pilot ───────── */}
         <section className="section" id="pilot">
           <div className="container">
-            <Label>{d.pilot.label}</Label>
-            <h2 className="h2 h2--wide">{d.pilot.title}</h2>
-            <p className="lead lead--muted pilot__intro">{d.pilot.intro}</p>
+            <Label>{t.pilot.label}</Label>
+            <h2 className="h2 h2--wide">{t.pilot.title}</h2>
+            <p className="lead lead--muted pilot__intro">{t.pilot.intro}</p>
             <div className="pilot">
               <div className="pilot__col">
-                <h3 className="pilot__title">{d.pilot.need.title}</h3>
+                <h3 className="pilot__title">{t.pilot.need.title}</h3>
                 <ul className="pilot__list">
-                  {d.pilot.need.items.map((t) => (
+                  {t.pilot.need.items.map((t) => (
                     <li key={t}>{t}</li>
                   ))}
                 </ul>
               </div>
               <div className="pilot__col pilot__col--accent">
-                <h3 className="pilot__title">{d.pilot.get.title}</h3>
+                <h3 className="pilot__title">{t.pilot.get.title}</h3>
                 <ul className="pilot__list pilot__list--dated">
-                  {d.pilot.get.items.map((t) => (
+                  {t.pilot.get.items.map((t) => (
                     <li key={t.when}>
                       <span>{t.when}</span>
                       {t.what}
@@ -216,7 +216,7 @@ export default function Home({ lang }: { lang: Lang }) {
                 </ul>
               </div>
             </div>
-            <p className="aside">{d.pilot.aside}</p>
+            <p className="aside">{t.pilot.aside}</p>
           </div>
         </section>
 
@@ -224,11 +224,11 @@ export default function Home({ lang }: { lang: Lang }) {
         <section className="section" id="faq">
           <div className="container split">
             <div>
-              <Label>{d.faq.label}</Label>
-              <h2 className="h2">{d.faq.title}</h2>
+              <Label>{t.faq.label}</Label>
+              <h2 className="h2">{t.faq.title}</h2>
             </div>
             <div className="faq">
-              {d.faq.items.map((f) => (
+              {t.faq.items.map((f) => (
                 <details key={f.q} className="faq__item">
                   <summary>
                     <span>{f.q}</span>
@@ -244,10 +244,10 @@ export default function Home({ lang }: { lang: Lang }) {
         {/* ───────── CTA ───────── */}
         <section className="section cta">
           <div className="container">
-            <h2 className="cta__title">{d.cta.title}</h2>
+            <h2 className="cta__title">{t.cta.title}</h2>
             <div className="cta__row">
               <a className="btn btn--large" href={`mailto:${CONTACT_EMAIL}`}>
-                {d.cta.button}
+                {t.cta.button}
               </a>
               <span className="cta__mail">{CONTACT_EMAIL}</span>
             </div>
@@ -255,8 +255,8 @@ export default function Home({ lang }: { lang: Lang }) {
         </section>
       </main>
 
-      <Footer lang={lang} d={d} withSources />
-      <CookieNotice lang={lang} d={d} />
+      <Footer lang={lang} withSources />
+      <CookieNotice lang={lang} />
     </>
   );
 }

@@ -1,4 +1,4 @@
-import type { Dict } from "@/content/dictionary";
+import { dict } from "@/content/dictionary";
 import { HTML_LANG, LANG_LABEL, LANGS, href, type Lang, type PageKey } from "@/content/i18n";
 import { CloseIcon, MenuIcon, MoonIcon, SunIcon } from "./Icons";
 import SpotMeter from "./SpotMeter";
@@ -7,40 +7,41 @@ import SpotMeter from "./SpotMeter";
  * Static markup only. Behaviour (scroll state, mobile menu, theme toggle)
  * lives in /public/site.js so the same markup works in the standalone build.
  */
-export default function Header({ lang, d, page }: { lang: Lang; d: Dict; page: PageKey }) {
+export default function Header({ lang, page }: { lang: Lang; page: PageKey }) {
+  const t = dict[lang];
   const onHome = page === "home";
-  const to = (id: string) => (onHome ? `#${id}` : href(lang, "home", id));
+  const sectionHref = (id: string) => (onHome ? `#${id}` : href(lang, "home", id));
   const links: [string, string][] = [
-    ["how", d.nav.how],
-    ["systems", d.nav.systems],
-    ["cycle", d.nav.cycle],
-    ["faq", d.nav.faq],
+    ["how", t.nav.how],
+    ["systems", t.nav.systems],
+    ["cycle", t.nav.cycle],
+    ["faq", t.nav.faq],
   ];
 
   return (
     <header className={`header${onHome ? "" : " header--solid"}`} data-solid={onHome ? undefined : ""}>
       <div className="header__inner">
-        <a href={onHome ? "#top" : href(lang)} className="logo" aria-label={d.nav.home}>
+        <a href={onHome ? "#top" : href(lang)} className="logo" aria-label={t.nav.home}>
           <SpotMeter size={18} className="logo__mark" />
           Jylu
         </a>
-        <nav className="nav" aria-label={d.nav.sections}>
+        <nav className="nav" aria-label={t.nav.sections}>
           {links.map(([id, label]) => (
-            <a key={id} href={to(id)}>
+            <a key={id} href={sectionHref(id)}>
               {label}
             </a>
           ))}
-          <LangSwitch lang={lang} page={page} label={d.nav.language} variant="menu" />
+          <LangSwitch lang={lang} page={page} label={t.nav.language} variant="menu" />
         </nav>
-        <LangSwitch lang={lang} page={page} label={d.nav.language} variant="bar" />
-        <button type="button" className="icon-btn theme-toggle" data-theme-toggle aria-label={d.nav.theme} title={d.nav.theme}>
+        <LangSwitch lang={lang} page={page} label={t.nav.language} variant="bar" />
+        <button type="button" className="icon-btn theme-toggle" data-theme-toggle aria-label={t.nav.theme} title={t.nav.theme}>
           <SunIcon className="i-sun" />
           <MoonIcon className="i-moon" />
         </button>
-        <a href={to("pilot")} className="btn btn--small header__cta">
-          {d.nav.pilot}
+        <a href={sectionHref("pilot")} className="btn btn--small header__cta">
+          {t.nav.pilot}
         </a>
-        <button type="button" className="icon-btn menu" aria-expanded="false" aria-label={d.nav.menu}>
+        <button type="button" className="icon-btn menu" aria-expanded="false" aria-label={t.nav.menu}>
           <MenuIcon className="i-open" />
           <CloseIcon className="i-close" />
         </button>

@@ -26,6 +26,20 @@
     return window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
   }
 
+  // The status bar matches the top of the page: the dark hero on the home page,
+  // the header on legal pages. Only needed once the user picked a theme by hand.
+  var STATUS_BAR = { light: "#f4f6f9", dark: "#0b0d14" };
+  function syncThemeColor() {
+    var header = document.querySelector(".header");
+    if (!header || !header.hasAttribute("data-solid") || !root.hasAttribute("data-theme")) return;
+    var metas = document.querySelectorAll('meta[name="theme-color"]');
+    for (var i = 0; i < metas.length; i++) metas[i].setAttribute("content", STATUS_BAR[effectiveTheme()]);
+  }
+
+  function reducedMotion() {
+    return window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  }
+
   function syncHeader() {
     var header = document.querySelector(".header");
     if (!header || header.hasAttribute("data-solid")) return;
@@ -62,12 +76,15 @@
           var next = effectiveTheme() === "dark" ? "light" : "dark";
           root.setAttribute("data-theme", next);
           set("jylu-theme", next);
+          syncThemeColor();
         });
       }
     }
 
     var langLinks = document.querySelectorAll("[data-lang-link]");
     for (var j = 0; j < langLinks.length; j++) {
+      if (langLinks[j].hasAttribute("data-bound")) continue;
+      langLinks[j].setAttribute("data-bound", "");
       langLinks[j].addEventListener("click", function (e) {
         set("jylu-lang", e.currentTarget.getAttribute("data-lang-link"));
       });
@@ -81,14 +98,23 @@
       if (ok) {
         ok.addEventListener("click", function () {
           set("jylu-notice", "1");
-          notice.hidden = true;
+          if (reducedMotion()) {
+            notice.hidden = true;
+            return;
+          }
+          // leaves faster than it came in (150ms vs 300ms), see .cookie--leaving
+          notice.classList.add("cookie--leaving");
+          setTimeout(function () {
+            notice.hidden = true;
+            notice.classList.remove("cookie--leaving");
+          }, 160);
         });
       }
     }
 
     var video = document.querySelector(".hero__video");
     if (video && window.matchMedia) {
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      if (reducedMotion()) {
         video.pause();
       } else {
         var playing = video.play();
@@ -97,9 +123,12 @@
     }
 
     syncHeader();
+    syncThemeColor();
     if (!scrollBound) {
       scrollBound = true;
       window.addEventListener("scroll", syncHeader, { passive: true });
+      // iOS Safari applies :active (the press feedback) only when a touch listener exists
+      document.addEventListener("touchstart", function () {}, { passive: true });
       document.addEventListener("keydown", function (e) {
         var h = document.querySelector(".header--open");
         if (e.key === "Escape" && h) setMenu(h, false);

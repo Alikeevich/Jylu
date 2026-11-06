@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { DEFAULT_LANG, HTML_LANG, LANGS } from "@/content/i18n";
 
 export const metadata: Metadata = {
   title: "Jylu",
@@ -7,13 +8,14 @@ export const metadata: Metadata = {
 
 // "/" only picks a language: the saved one, Kazakh for a Kazakh browser, otherwise Russian.
 const REDIRECT =
-  "(function(){var l=null;try{l=localStorage.getItem('jylu-lang')}catch(e){}" +
-  "if(l!=='kz'&&l!=='ru'&&l!=='en'){var n=((navigator.languages&&navigator.languages[0])||navigator.language||'').toLowerCase();l=n.indexOf('kk')===0?'kz':'ru'}" +
+  `(function(){var langs=${JSON.stringify(LANGS)},l=null;try{l=localStorage.getItem('jylu-lang')}catch(e){}` +
+  "if(langs.indexOf(l)<0){var n=((navigator.languages&&navigator.languages[0])||navigator.language||'').toLowerCase();" +
+  `l=n.indexOf('${HTML_LANG.kz}')===0?'kz':'${DEFAULT_LANG}'}` +
   "location.replace('/'+l+'/'+location.hash)})();";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ru">
+    <html lang={HTML_LANG[DEFAULT_LANG]}>
       <head>
         <script dangerouslySetInnerHTML={{ __html: REDIRECT }} />
       </head>
