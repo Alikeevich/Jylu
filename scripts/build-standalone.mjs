@@ -22,7 +22,7 @@ const OUT = "out";
 const args = process.argv.slice(2);
 const fragment = args.includes("--fragment");
 const outDir = resolve(args.find((a) => !a.startsWith("--")) ?? "standalone");
-const ASSETS = ["video/hero.mp4", "video/poster.jpg", "images/courtyard-960.webp", "images/courtyard-1536.webp"];
+const ASSETS = ["video/hero.mp4", "video/hero-portrait.mp4", "video/poster.jpg", "video/poster-portrait.jpg", "images/heating-main-960.webp", "images/heating-main-1280.webp"];
 
 const read = (file) => readFileSync(file, "utf8");
 const htmlLang = (html) => (html.match(/<html lang="([^"]+)"/) || [])[1];

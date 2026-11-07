@@ -105,9 +105,9 @@ const ru: Dict = {
     },
   },
   photo: {
-    alt: "Ночной заснеженный двор между панельными домами: вдоль подземной трубы снег растаял полосой, из люка поднимается пар",
+    alt: "Зимняя раскопка теплотрассы: две вскрытые трубы над траншеей, из траншеи идёт пар, деревья в инее",
     caption:
-      "Иллюстрация. Над трубой с утечкой снег тает полосой, а из камеры идёт пар. Тепловизор замечает такие места с проезжающей машины.",
+      "Так выглядит ремонт теплотрассы зимой: трубы вскрыты, из траншеи идёт пар. Мы хотим находить такие участки раньше, чем их придётся раскапывать в мороз.",
   },
   how: {
     label: "Как это работает",
@@ -323,9 +323,9 @@ const en: Dict = {
     },
   },
   photo: {
-    alt: "A snowy courtyard between panel apartment blocks at night: snow has melted in a strip along an underground pipe and steam rises from a manhole",
+    alt: "A heating main dug up in winter: two exposed pipes above a trench, steam rising, frost on the trees",
     caption:
-      "Illustration. Above a leaking pipe, snow melts in a strip and steam rises from the chamber. A thermal camera spots places like this from a passing vehicle.",
+      "This is what a heating main repair looks like in winter: the pipes are dug up and steam pours out of the trench. We want to find sections like this before anyone has to dig in the frost.",
   },
   how: {
     label: "How it works",
@@ -544,9 +544,9 @@ const kz: Dict = {
     },
   },
   photo: {
-    alt: "Түнгі қарлы аула, панельді үйлердің арасы: жер астындағы құбыр бойымен қар жолақ болып еріген, құдықтан бу көтеріліп тұр",
+    alt: "Қыста қазылған жылу трассасы: траншея үстінде ашылған екі құбыр, траншеядан бу шығып тұр, ағаштарда қырау",
     caption:
-      "Иллюстрация. Ағып тұрған құбырдың үстінде қар жолақ болып ериді, ал жылу камерасынан бу шығады. Тепловизор мұндай жерлерді жүріп бара жатқан көліктен байқайды.",
+      "Қыста жылу трассасын жөндеу осылай көрінеді: құбырлар ашылған, траншеядан бу шығып жатыр. Біз мұндай учаскелерді аязда қазуға тура келгенге дейін тапқымыз келеді.",
   },
   how: {
     label: "Қалай жұмыс істейді",

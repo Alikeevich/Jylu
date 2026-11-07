@@ -114,6 +114,10 @@
 
     var video = document.querySelector(".hero__video");
     if (video && window.matchMedia) {
+      // the portrait cut has its own first frame
+      if (window.matchMedia("(max-aspect-ratio: 4/5)").matches && video.poster.indexOf("poster-portrait") < 0) {
+        video.poster = video.getAttribute("poster").replace("poster.jpg", "poster-portrait.jpg");
+      }
       if (reducedMotion()) {
         video.pause();
       } else {

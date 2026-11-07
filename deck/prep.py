@@ -6,7 +6,7 @@ ROOT = Path(__file__).resolve().parent.parent
 A = ROOT / "deck" / "assets"
 A.mkdir(parents=True, exist_ok=True)
 
-court = Image.open(ROOT / "public/images/courtyard-1536.webp").convert("RGB")   # 1536x864
+court = Image.open(ROOT / "deck/source/courtyard-1536.webp").convert("RGB")   # 1536x864
 poster = Image.open(ROOT / "public/video/poster.jpg").convert("RGB")             # thermal frame
 
 def save(im, name, size=None, q=88):

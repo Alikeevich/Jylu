@@ -78,11 +78,11 @@ export default function Home({ lang }: { lang: Lang }) {
         <figure className="photo container">
           <div className="photo__frame">
             <img
-              src="/images/courtyard-1536.webp"
-              srcSet="/images/courtyard-960.webp 960w, /images/courtyard-1536.webp 1536w"
+              src="/images/heating-main-1280.webp"
+              srcSet="/images/heating-main-960.webp 960w, /images/heating-main-1280.webp 1280w"
               sizes="(max-width: 860px) 100vw, 1296px"
-              width={1536}
-              height={864}
+              width={1280}
+              height={720}
               alt={t.photo.alt}
               loading="lazy"
               decoding="async"
