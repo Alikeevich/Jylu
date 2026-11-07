@@ -107,6 +107,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 72px; /* anchors land below the fixed header */
   -webkit-text-size-adjust: 100%;
 }
 
@@ -569,38 +570,54 @@ p {
   color: var(--fg-3);
 }
 
-/* Steps */
+/* Steps: one pipe run, a node per step; the step where heat is found glows */
 .steps {
   list-style: none;
-  margin: 64px 0 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  border-top: 1px solid var(--line-2);
+  margin: 56px 0 0;
+  padding: 0 0 0 40px;
+  position: relative;
+  max-width: 880px;
+}
+.steps::before {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 12px;
+  bottom: 44px;
+  width: 2px;
+  background: var(--line-2);
 }
 .step {
-  padding: 24px 24px 0 0;
-  min-width: 0;
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 16rem) minmax(0, 1fr);
+  gap: 8px 40px;
+  padding-bottom: 36px;
 }
-.step + .step {
-  padding-left: 24px;
-  border-left: 1px solid var(--line);
+.step::before {
+  content: "";
+  position: absolute;
+  left: -40px;
+  top: 5px;
+  width: 16px;
+  height: 16px;
+  box-sizing: border-box;
+  border-radius: 50%;
+  border: 2px solid var(--fg-3);
+  background: var(--bg);
 }
-.step__n {
-  font-family: var(--mono);
-  font-size: 12px;
-  color: var(--fg-3);
+.step--hot::before {
+  border-color: var(--ember);
+  background: var(--ember);
 }
 .step__title {
-  margin-top: 32px;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 500;
   line-height: 1.3;
 }
 .step__text {
-  margin-top: 8px;
-  font-size: 14px;
   color: var(--fg-2);
+  max-width: 52ch;
 }
 
 /* Systems */
@@ -807,57 +824,21 @@ p {
   margin-bottom: 4px;
 }
 
-/* FAQ */
+/* FAQ: questions and answers in plain view */
 .faq {
-  border-top: 1px solid var(--line-2);
-  align-self: start;
-  margin-top: 48px;
+  margin: 48px 0 0;
+  display: grid;
+  gap: 36px;
 }
-.faq__item {
-  border-bottom: 1px solid var(--line);
+.faq__item dt {
+  font-size: 19px;
+  font-weight: 500;
+  line-height: 1.35;
 }
-.faq__item summary {
-  list-style: none;
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 24px;
-  padding: 20px 0;
-  font-size: 18px;
-  transition: color 150ms var(--ease);
-}
-.faq__item summary::-webkit-details-marker {
-  display: none;
-}
-.faq__icon {
-  flex: none;
-  width: 12px;
-  height: 12px;
-  position: relative;
-  color: var(--fg-3);
-}
-.faq__icon::before,
-.faq__icon::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 5px;
-  height: 1.5px;
-  background: currentColor;
-  transition: transform 180ms var(--ease);
-}
-.faq__icon::after {
-  transform: rotate(90deg);
-}
-.faq__item[open] .faq__icon::after {
-  transform: rotate(0deg);
-}
-.faq__item p {
-  padding: 0 40px 24px 0;
+.faq__item dd {
+  margin: 8px 0 0;
   color: var(--fg-2);
-  max-width: 60ch;
+  max-width: 58ch;
 }
 
 /* CTA */
@@ -1077,7 +1058,6 @@ summary {
 .icon-btn,
 .nav > a,
 .langs a,
-.faq__item summary,
 .sources summary,
 .legal__back {
   -webkit-user-select: none;
@@ -1096,9 +1076,6 @@ summary {
 .sources a:active,
 .footer__legal a:active {
   color: var(--fg);
-}
-.faq__item summary:active {
-  color: var(--fg-2);
 }
 /* hover only where the pointer can hover; on touch a tap would leave it stuck */
 @media (hover: hover) and (pointer: fine) {
@@ -1119,9 +1096,6 @@ summary {
   .btn--secondary:hover {
     background: var(--raised);
   }
-  .faq__item summary:hover {
-    color: var(--fg-2);
-  }
 }
 
 /* ───────── Responsive ───────── */
@@ -1131,19 +1105,6 @@ summary {
   }
   .hero__title:lang(kk) {
     font-size: 54px;
-  }
-  .steps {
-    grid-template-columns: repeat(2, 1fr);
-    border-top: 0;
-  }
-  .step,
-  .step + .step {
-    padding: 24px 24px 24px 0;
-    border-left: 0;
-    border-top: 1px solid var(--line-2);
-  }
-  .step__title {
-    margin-top: 16px;
   }
   .systems {
     grid-template-columns: 1fr;
@@ -1342,13 +1303,11 @@ summary {
   .stat__value {
     font-size: 32px;
   }
-  .steps,
   .cycle {
     grid-template-columns: 1fr;
   }
-  .step,
-  .step + .step {
-    padding-right: 0;
+  .step {
+    grid-template-columns: minmax(0, 1fr);
   }
   .pilot__col {
     padding: 24px;

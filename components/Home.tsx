@@ -98,8 +98,7 @@ export default function Home({ lang }: { lang: Lang }) {
             <h2 className="h2 h2--wide">{t.how.title}</h2>
             <ol className="steps">
               {t.how.steps.map((s, i) => (
-                <li key={s.title} className="step">
-                  <span className="step__n">{String(i + 1).padStart(2, "0")}</span>
+                <li key={s.title} className={`step${i === 2 ? " step--hot" : ""}`}>
                   <h3 className="step__title">{s.title}</h3>
                   <p className="step__text">{s.text}</p>
                 </li>
@@ -227,17 +226,14 @@ export default function Home({ lang }: { lang: Lang }) {
               <Label>{t.faq.label}</Label>
               <h2 className="h2">{t.faq.title}</h2>
             </div>
-            <div className="faq">
+            <dl className="faq">
               {t.faq.items.map((f) => (
-                <details key={f.q} className="faq__item">
-                  <summary>
-                    <span>{f.q}</span>
-                    <span className="faq__icon" aria-hidden />
-                  </summary>
-                  <p>{f.a}</p>
-                </details>
+                <div key={f.q} className="faq__item">
+                  <dt>{f.q}</dt>
+                  <dd>{f.a}</dd>
+                </div>
               ))}
-            </div>
+            </dl>
           </div>
         </section>
 
