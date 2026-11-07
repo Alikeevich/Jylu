@@ -1,0 +1,3 @@
+# rendered by prep.py, cover.py and render.js; construction.png is a source screenshot
+assets/*
+!assets/construction.png

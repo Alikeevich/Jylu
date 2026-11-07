@@ -70,6 +70,17 @@ python3 scripts/brand.py
 
 Скрипт пишет `components/Logo.tsx`, `app/icon.svg` (фавиконка) и SVG в `public/brand/`. PNG (`app/apple-icon.png`, `public/brand/*.png`) и картинка для превью ссылок `public/images/og.jpg` сделаны из этих SVG. Если поменяете геометрию в скрипте, пересоберите и их.
 
+## Презентация для новичков
+
+`deck/Jylu-для-новичков.pptx` — 20 слайдов: идея, словарь и цифры к питчу, ответы на вопросы жюри, логотип. Заметки для выступающего есть на каждом слайде. Пересобрать:
+
+```bash
+cd deck && npm install
+cd .. && npm run build && (npx serve out -l 4175 &)
+python3 deck/prep.py && python3 deck/cover.py && node deck/render.js
+cd deck && PPTX_SKILL=<путь к pptx-скиллу> NODE_PATH=$PWD/node_modules node build.js
+```
+
 ## Однофайловая версия
 
 ```bash
