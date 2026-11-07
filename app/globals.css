@@ -35,6 +35,8 @@
   --gutter: 32px;
   --max: 1360px;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  /* on-screen movement: the truck between stops (easeInOutQuad, it is heavy) */
+  --ease-move: cubic-bezier(0.45, 0, 0.55, 1);
 }
 
 @media (prefers-color-scheme: light) {
@@ -570,54 +572,206 @@ p {
   color: var(--fg-3);
 }
 
-/* Steps: one pipe run, a node per step; the step where heat is found glows */
-.steps {
+/* How it works: a garbage truck with the camera drives the yard and stops at
+   each step (components/RouteScene.tsx, played by public/site.js). The scene
+   stays dark in both themes, like the hero; the step under the truck is lit. */
+.route {
+  margin-top: 56px;
+}
+.route__scene {
+  overflow: hidden;
+  border-radius: 16px;
+  background: var(--card);
+}
+.route__svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1200 / 340;
+}
+.rs-house {
+  fill: var(--card);
+  stroke: rgba(238, 240, 245, 0.08);
+  stroke-width: 2;
+}
+.rs-win {
+  fill: rgba(238, 240, 245, 0.07);
+}
+.rs-lit {
+  fill: rgba(255, 196, 128, 0.24);
+}
+.rs-frame {
+  fill: var(--card);
+}
+.rs-ground path,
+.rs-ground rect {
+  fill: none;
+}
+.rs-road {
+  stroke: rgba(238, 240, 245, 0.24);
+  stroke-width: 2;
+}
+.rs-ground .rs-snow {
+  fill: rgba(238, 240, 245, 0.3);
+}
+.rs-pipe {
+  stroke: rgba(238, 240, 245, 0.06);
+  stroke-width: 10;
+}
+.rs-chamber {
+  stroke: rgba(238, 240, 245, 0.14);
+  stroke-width: 2;
+}
+.rs-hatch {
+  stroke: rgba(238, 240, 245, 0.45);
+  stroke-width: 3;
+}
+.rs-truck {
+  fill: var(--card);
+  stroke: var(--fg);
+  stroke-width: 3;
+  stroke-linejoin: round;
+}
+.rs-rib {
+  stroke: rgba(238, 240, 245, 0.32);
+  stroke-width: 2;
+}
+.rs-glass {
+  fill: rgba(238, 240, 245, 0.1);
+  stroke: var(--fg);
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+.rs-rim {
+  fill: none;
+  stroke: rgba(238, 240, 245, 0.6);
+  stroke-width: 2;
+  stroke-dasharray: 3 2.5;
+}
+.rs-cam-on {
+  fill: var(--ember);
+  stroke: var(--ember);
+  stroke-width: 3;
+  stroke-linejoin: round;
+}
+.rs-foot {
+  stroke: rgba(238, 240, 245, 0.4);
+  stroke-width: 2;
+}
+.rs-box {
+  fill: none;
+  stroke: rgba(238, 240, 245, 0.8);
+  stroke-width: 2;
+}
+.rs-box--hot {
+  stroke: var(--ember);
+}
+.rs-stem {
+  stroke: rgba(238, 240, 245, 0.45);
+  stroke-width: 2;
+}
+.rs-mark {
+  fill: var(--ember);
+}
+.rs-card {
+  fill: var(--raised);
+  stroke: rgba(238, 240, 245, 0.14);
+  stroke-width: 1.5;
+}
+.rs-slot {
+  fill: none;
+  stroke: rgba(238, 240, 245, 0.25);
+  stroke-width: 1.5;
+}
+.rs-bar {
+  fill: rgba(238, 240, 245, 0.28);
+}
+.rs-bar--title {
+  fill: rgba(238, 240, 245, 0.5);
+}
+.rs-bar--top {
+  fill: rgba(238, 240, 245, 0.55);
+}
+
+/* the steps run under the scene, one per fifth, so each sits under its stop */
+.route__steps {
   list-style: none;
-  margin: 56px 0 0;
-  padding: 0 0 0 40px;
-  position: relative;
-  max-width: 880px;
-}
-.steps::before {
-  content: "";
-  position: absolute;
-  left: 7px;
-  top: 12px;
-  bottom: 44px;
-  width: 2px;
-  background: var(--line-2);
-}
-.step {
+  margin: 32px 0 0;
+  padding: 0;
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 16rem) minmax(0, 1fr);
-  gap: 8px 40px;
-  padding-bottom: 36px;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
 }
-.step::before {
+.route__steps::before,
+.route__steps::after {
   content: "";
   position: absolute;
-  left: -40px;
-  top: 5px;
+  left: 8px;
+  right: calc(20% - 8px);
+  top: 7px;
+  height: 2px;
+  background: var(--line-2);
+}
+/* the part of the route already driven */
+.route__steps::after {
+  background: var(--fg-3);
+  transform-origin: left center;
+  transform: scaleX(var(--route-p, 0));
+  transition: transform 600ms var(--ease-move);
+}
+.route__step {
+  position: relative;
+  padding: 36px 28px 0 0;
+}
+.route__step::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  top: 0;
   width: 16px;
   height: 16px;
   box-sizing: border-box;
   border-radius: 50%;
   border: 2px solid var(--fg-3);
   background: var(--bg);
+  transition: background-color 250ms ease, border-color 250ms ease;
 }
-.step--hot::before {
+.route__step[data-state="done"]::before {
+  background: var(--fg-3);
+}
+.route__step[data-state="active"]::before {
+  border-color: var(--fg);
+  background: var(--fg);
+}
+.route__step--hot[data-state="active"]::before {
   border-color: var(--ember);
   background: var(--ember);
 }
-.step__title {
-  font-size: 20px;
+.route__title {
+  font-size: 18px;
   font-weight: 500;
   line-height: 1.3;
-}
-.step__text {
   color: var(--fg-2);
-  max-width: 52ch;
+  transition: color 250ms ease;
+}
+.route__step[data-state="active"] .route__title {
+  color: var(--fg);
+}
+.route__text {
+  margin-top: 8px;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--fg-2);
+}
+/* a step can be picked to replay the truck from there */
+@media (hover: hover) and (pointer: fine) {
+  .route__step {
+    cursor: pointer;
+  }
+  .route__step:hover .route__title {
+    color: var(--fg);
+  }
 }
 
 /* Systems */
@@ -1116,6 +1270,30 @@ summary {
   .cycle::before {
     display: none;
   }
+  /* five columns get too narrow: the steps stack along a vertical run */
+  .route__steps {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 720px;
+    padding-left: 40px;
+  }
+  .route__steps::before {
+    left: 7px;
+    right: auto;
+    top: 12px;
+    bottom: 44px;
+    width: 2px;
+    height: auto;
+  }
+  .route__steps::after {
+    display: none;
+  }
+  .route__step {
+    padding: 0 0 32px;
+  }
+  .route__step::before {
+    left: -40px;
+    top: 3px;
+  }
 }
 
 @media (max-width: 1024px) {
@@ -1266,6 +1444,13 @@ summary {
     aspect-ratio: 4 / 3;
     object-position: 45% 55%;
   }
+  .route {
+    margin-top: 40px;
+  }
+  .route__scene {
+    margin: 0 calc(-1 * max(var(--gutter), env(safe-area-inset-left, 0px)));
+    border-radius: 0;
+  }
   .sources ol {
     columns: 1;
   }
@@ -1305,9 +1490,6 @@ summary {
   }
   .cycle {
     grid-template-columns: 1fr;
-  }
-  .step {
-    grid-template-columns: minmax(0, 1fr);
   }
   .pilot__col {
     padding: 24px;

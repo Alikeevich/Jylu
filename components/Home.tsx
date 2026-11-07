@@ -5,6 +5,7 @@ import CookieNotice from "./CookieNotice";
 import Footer from "./Footer";
 import Header from "./Header";
 import HeroVideo from "./HeroVideo";
+import RouteScene, { ROUTE } from "./RouteScene";
 
 function Label({ children }: { children: React.ReactNode }) {
   return <p className="label">{children}</p>;
@@ -96,14 +97,22 @@ export default function Home({ lang }: { lang: Lang }) {
           <div className="container">
             <Label>{t.how.label}</Label>
             <h2 className="h2 h2--wide">{t.how.title}</h2>
-            <ol className="steps">
-              {t.how.steps.map((s, i) => (
-                <li key={s.title} className={`step${i === 2 ? " step--hot" : ""}`}>
-                  <h3 className="step__title">{s.title}</h3>
-                  <p className="step__text">{s.text}</p>
-                </li>
-              ))}
-            </ol>
+            <div className="route" data-route={JSON.stringify(ROUTE)}>
+              <RouteScene />
+              {/* the step under the truck is lit; the still in the markup is step 3 */}
+              <ol className="route__steps" style={{ "--route-p": 0.5 } as React.CSSProperties}>
+                {t.how.steps.map((s, i) => (
+                  <li
+                    key={s.title}
+                    className={`route__step${i === 2 ? " route__step--hot" : ""}`}
+                    data-state={i < 2 ? "done" : i === 2 ? "active" : undefined}
+                  >
+                    <h3 className="route__title">{s.title}</h3>
+                    <p className="route__text">{s.text}</p>
+                  </li>
+                ))}
+              </ol>
+            </div>
             <p className="aside">{t.how.aside}</p>
           </div>
         </section>
